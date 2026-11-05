@@ -1,0 +1,32 @@
+@base = http://localhost:5090
+
+### Lista categorías
+GET {{base}}/api/categorias
+
+### Alta de categoría
+POST {{base}}/api/categorias
+Content-Type: application/json
+
+{
+  "nombre": "Deportes",
+  "descripcion": "Eventos deportivos"
+}
+
+### Lista eventos filtrada
+GET {{base}}/api/eventos?categoriaId=1
+
+### Ruta anidada
+GET {{base}}/api/categorias/1/eventos
+
+### Alta de evento
+POST {{base}}/api/eventos
+Content-Type: application/json
+
+{
+  "titulo": "Festival de verano",
+  "lugar": "Parque Central",
+  "fecha": "2026-12-15T18:00:00Z",
+  "aforo": 250,
+  "precio": 20,
+  "categoriaId": 1
+}

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f7f9">
+  <title>Agenda | Gestión de eventos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="/"><span class="brand-icon">a</span><span>agenda<span class="brand-dot">.</span></span></a>
+    <div class="side-label">ESPACIO DE TRABAJO</div>
+    <nav aria-label="Navegación principal">
+      <button class="nav-item active" data-view="events"><span class="nav-icon">▦</span>Eventos</button>
+      <button class="nav-item" data-view="categories"><span class="nav-icon">◈</span>Categorías</button>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="side-note"><span>✦</span><div><b>Tu agenda, al día</b><small>Gestiona tus actividades desde un solo lugar.</small></div></div>
+      <div class="api-status"><i></i> API conectada <a href="/swagger" target="_blank" rel="noreferrer">Swagger ↗</a></div>
+    </div>
+  </aside>
+  <main class="main">
+    <header class="topbar"><div class="crumb">Workspace <span>/</span> <b id="crumb-current">Eventos</b></div><div class="top-right"><time id="today"></time><span class="avatar">EW</span></div></header>
+    <div class="page">
+      <section class="heading"><div><div class="eyebrow">PANEL DE GESTIÓN</div><h1 id="page-title">Tus eventos</h1><p id="page-subtitle">Organiza y administra las actividades de tu comunidad.</p></div><button id="add-button" class="button primary"><span class="plus">+</span><span id="add-label">Crear evento</span></button></section>
+      <section id="stats" class="stats">
+        <article><div class="stat-label">Eventos registrados <span class="stat-icon violet">▦</span></div><strong id="total-events">—</strong><small>En toda tu agenda</small></article>
+        <article><div class="stat-label">Próximos eventos <span class="stat-icon blue">◷</span></div><strong id="upcoming-events">—</strong><small>A partir de hoy</small></article>
+        <article><div class="stat-label">Categorías <span class="stat-icon amber">◈</span></div><strong id="total-categories">—</strong><small>Temas disponibles</small></article>
+        <article><div class="stat-label">Aforo total <span class="stat-icon green">♧</span></div><strong id="total-capacity">—</strong><small>Plazas programadas</small></article>
+      </section>
+      <section id="events-panel" class="panel">
+        <div class="panel-heading"><div><h2>Todos los eventos</h2><p>Consulta, filtra y actualiza tu programación.</p></div><button class="button outline" id="refresh"><span>↻</span> Actualizar</button></div>
+        <div class="filters">
+          <label class="search"><span>⌕</span><input id="search" type="search" placeholder="Buscar evento o lugar…"></label>
+          <select id="filter-category" aria-label="Filtrar por categoría"><option value="">Todas las categorías</option></select>
+          <label class="date-filter"><span>Desde</span><input id="date-from" type="date"></label>
+          <label class="date-filter"><span>Hasta</span><input id="date-to" type="date"></label>
+          <button class="clear" id="clear">Limpiar</button>
+        </div>
+        <div class="table-wrap"><table><thead><tr><th>EVENTO</th><th>CATEGORÍA</th><th>FECHA Y HORA</th><th>LUGAR</th><th>AFORO</th><th>PRECIO</th><th></th></tr></thead><tbody id="event-rows"></tbody></table></div>
+        <div class="panel-footer"><span id="count">Cargando…</span><span>Datos sincronizados con la API</span></div>
+      </section>
+      <section id="categories-panel" class="panel hidden">
+        <div class="panel-heading"><div><h2>Tus categorías</h2><p>Clasifica las actividades para ordenar tu agenda.</p></div><button class="button outline" id="refresh-categories">↻ Actualizar</button></div>
+        <div id="category-cards" class="category-grid"></div>
+      </section>
+      <footer>Agenda de eventos <span>Panel de administración</span></footer>
+    </div>
+  </main>
+  <div id="modal-backdrop" class="backdrop hidden">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-heading"><div><div class="eyebrow" id="modal-label">NUEVO REGISTRO</div><h2 id="modal-title">Crear evento</h2></div><button class="close" id="close-modal" aria-label="Cerrar">×</button></div>
+      <form id="event-form" class="form-grid">
+        <input type="hidden" id="event-id">
+        <label class="wide">Nombre del evento <b>*</b><input id="event-title" required minlength="3" maxlength="120" placeholder="Ej. Festival de verano"></label>
+        <label>Categoría <b>*</b><select id="event-category" required></select></label>
+        <label>Lugar <b>*</b><input id="event-place" required maxlength="150" placeholder="Ej. Parque Central"></label>
+        <label>Fecha y hora <b>*</b><input id="event-date" type="datetime-local" required></label>
+        <label>Aforo <b>*</b><input id="event-capacity" type="number" min="1" max="50000" required placeholder="250"></label>
+        <label>Precio (S/) <b>*</b><input id="event-price" type="number" min="0" step="0.01" required placeholder="0.00"></label>
+        <div class="form-actions wide"><button type="button" class="button outline cancel">Cancelar</button><button class="button primary" type="submit">Guardar evento</button></div>
+      </form>
+      <form id="category-form" class="form-grid hidden">
+        <input type="hidden" id="category-id">
+        <label class="wide">Nombre de categoría <b>*</b><input id="category-name" required minlength="2" maxlength="60" placeholder="Ej. Música"></label>
+        <label class="wide">Descripción<textarea id="category-description" maxlength="250" rows="3" placeholder="Describe brevemente esta categoría"></textarea></label>
+        <div class="form-actions wide"><button type="button" class="button outline cancel">Cancelar</button><button class="button primary" type="submit">Guardar categoría</button></div>
+      </form>
+      <div id="modal-error" class="form-error hidden" role="alert"></div>
+    </section>
+  </div>
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+  <script src="/app.js" defer></script>
+</body>
+</html>
