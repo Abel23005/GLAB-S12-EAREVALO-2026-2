@@ -31,7 +31,7 @@ public partial class EventosContext : DbContext
             entity.HasIndex(e => new { e.Titulo, e.Fecha }, "UX_Eventos_Titulo_Fecha").IsUnique();
 
             entity.Property(e => e.Lugar).HasMaxLength(150);
-            entity.Property(e => e.Precio).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.Precio).HasPrecision(18, 2);
             entity.Property(e => e.Titulo).HasMaxLength(120);
 
             entity.HasOne(d => d.Categoria).WithMany(p => p.Eventos)

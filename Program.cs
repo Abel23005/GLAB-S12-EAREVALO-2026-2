@@ -7,7 +7,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<EventosContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("EventosDB")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("EventosDB")));
 builder.Services.AddCors(options => options.AddPolicy("ClienteWeb", policy =>
     policy.WithOrigins(builder.Configuration["Cors:AllowedOrigin"] ?? "http://localhost:5173")
           .AllowAnyHeader().AllowAnyMethod()));
