@@ -2,7 +2,7 @@
 
 - URL: https://eventos-api-glab-s12.onrender.com
 - Swagger: https://eventos-api-glab-s12.onrender.com/swagger/index.html
-- Fecha UTC: 2026-11-06 03:37:12
+- Fecha UTC: 2026-11-06 03:40:47
 - Casos: 28
 - Correctos: 28
 - Fallidos: 0
@@ -17,12 +17,12 @@
 | Eventos de categoría inexistente | GET | `/api/categorias/999999/eventos` | 404 | 404 | OK |
 | Categoría duplicada | POST | `/api/categorias` | 409 | 409 | OK |
 | Crear categoría | POST | `/api/categorias` | 201 | 201 | OK |
-| Actualizar categoría | PUT | `/api/categorias/7` | 204 | 204 | OK |
-| Id de categoría no coincide | PUT | `/api/categorias/7` | 400 | 400 | OK |
+| Actualizar categoría | PUT | `/api/categorias/8` | 204 | 204 | OK |
+| Id de categoría no coincide | PUT | `/api/categorias/8` | 400 | 400 | OK |
 | Actualizar categoría inexistente | PUT | `/api/categorias/999999` | 404 | 404 | OK |
-| Nombre duplicado al actualizar categoría | PUT | `/api/categorias/7` | 409 | 409 | OK |
+| Nombre duplicado al actualizar categoría | PUT | `/api/categorias/8` | 409 | 409 | OK |
 | No borrar categoría con eventos | DELETE | `/api/categorias/1` | 409 | 409 | OK |
-| Eliminar categoría temporal | DELETE | `/api/categorias/7` | 204 | 204 | OK |
+| Eliminar categoría temporal | DELETE | `/api/categorias/8` | 204 | 204 | OK |
 | Eliminar categoría inexistente | DELETE | `/api/categorias/999999` | 404 | 404 | OK |
 | Filtrar eventos | GET | `/api/eventos?categoriaId=1` | 200 | 200 | OK |
 | Evento existente | GET | `/api/eventos/1` | 200 | 200 | OK |
@@ -30,10 +30,10 @@
 | Evento duplicado | POST | `/api/eventos` | 409 | 409 | OK |
 | Categoría inválida al crear evento | POST | `/api/eventos` | 400 | 400 | OK |
 | Crear evento | POST | `/api/eventos` | 201 | 201 | OK |
-| Actualizar evento | PUT | `/api/eventos/6` | 204 | 204 | OK |
-| Id de evento no coincide | PUT | `/api/eventos/6` | 400 | 400 | OK |
+| Actualizar evento | PUT | `/api/eventos/7` | 204 | 204 | OK |
+| Id de evento no coincide | PUT | `/api/eventos/7` | 400 | 400 | OK |
 | Actualizar evento inexistente | PUT | `/api/eventos/999999` | 404 | 404 | OK |
-| Categoría inválida al actualizar evento | PUT | `/api/eventos/6` | 400 | 400 | OK |
-| Duplicado al actualizar evento | PUT | `/api/eventos/6` | 409 | 409 | OK |
-| Eliminar evento temporal | DELETE | `/api/eventos/6` | 204 | 204 | OK |
+| Categoría inválida al actualizar evento | PUT | `/api/eventos/7` | 400 | 400 | OK |
+| Duplicado al actualizar evento | PUT | `/api/eventos/7` | 409 | 409 | OK |
+| Eliminar evento temporal | DELETE | `/api/eventos/7` | 204 | 204 | OK |
 | Eliminar evento inexistente | DELETE | `/api/eventos/999999` | 404 | 404 | OK |
