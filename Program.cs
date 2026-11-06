@@ -1,4 +1,5 @@
 using EventosApi.Data;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,10 @@ builder.Services.AddCors(options => options.AddPolicy("ClienteWeb", policy =>
           .AllowAnyHeader().AllowAnyMethod()));
 
 var app = builder.Build();
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseDefaultFiles();
