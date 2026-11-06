@@ -38,4 +38,9 @@ Hay 11 acciones. Todas son asíncronas y consultan con LINQ/EF Core. Los control
 
 La solución seleccionada es Neon PostgreSQL para datos y Render Web Service con Docker para la API. Neon ofrece en el plan Free una cuota de almacenamiento y cómputo mensual sin tarjeta, adecuada para prototipos; la base puede escalar a cero cuando queda inactiva ([planes Neon](https://neon.com/docs/introduction/plans)). Render entrega una URL pública, pero sus servicios web gratuitos se duermen tras periodos sin tráfico; la primera petición posterior puede tardar en reactivarlos ([Render: límites del plan gratuito](https://render.com/docs/free)).
 
-El `Dockerfile` prepara la API para Render. El código está en [GitHub](https://github.com/Abel23005/GLAB-S12-EAREVALO-2026-2). Configura `ConnectionStrings__EventosDB` en Render como secreto usando la cadena Neon con SSL y ejecuta el script PostgreSQL de este repositorio en Neon. Al completar el despliegue, agrega aquí la URL pública de Swagger y las capturas de las pruebas realizadas en la nube.
+El `Dockerfile` prepara la API para Render. El código está en [GitHub](https://github.com/Abel23005/GLAB-S12-EAREVALO-2026-2). Render usa `ConnectionStrings__EventosDB` como secreto y Neon con SSL. El script PostgreSQL de este repositorio crea el esquema y los datos de ejemplo en Neon. `ASPNETCORE_FORWARDEDHEADERS_ENABLED=true` permite que ASP.NET Core respete HTTPS terminado en el proxy de Render y construya correctamente las cabeceras `Location` de las altas.
+
+- API: <https://eventos-api-glab-s12.onrender.com>
+- Swagger: <https://eventos-api-glab-s12.onrender.com/swagger/index.html>
+- Render: servicio `eventos-api-glab-s12`, plan Free, conectado a `main`.
+- Verificación en nube: 28 casos cubren las 11 acciones y las respuestas 200, 201, 204, 400, 404 y 409; 28 correctos, 0 fallidos. El script reproducible es `Evidencias/verificar-api-cloud.ps1`; los resultados están en `Evidencias/resultados-cloud.csv` y `Evidencias/resultados-cloud.md`.
